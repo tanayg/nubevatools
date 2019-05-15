@@ -13,15 +13,16 @@ import subprocess
 from contextlib import closing
 
 if len(sys.argv) != 8:
-    print("Run Script with Correct Parameters: python nuagent_iperf_test.py [AWS REGION] [SOURCE INSTANCE ID] [DESTINATION INSTANCE ID] [TOOL INSTANCE ID] [BASTION INSTANCE ID] [SSH KEY] [VNI]")
+    print("Run Script with Correct Parameters: python nuagent_iperf_test.py [AWS REGION] [CLIENT INSTANCE ID] [SERVER INSTANCE ID] [TOOL INSTANCE ID] [BASTION INSTANCE ID] [SSH KEY] [VNI]")
     sys.exit(1)
 
 # Define Test Controls
 TEST_THRESHOLD = 0.99  # out of 1
 TRAFFIC_DURATION = 10  # seconds
+paramiko.util.log_to_file("/tmp/paramiko.bastion_iperf_test.log")
 
 # COMMAND LINE ARGUMENTS
-# 1[AWS REGION] 2[SOURCE INSTANCE ID] 3[DESTINATION INSTANCE ID] 4[TOOL INSTANCE ID] 5[BASTION INSTANCE ID] 6[SSH KEY]
+# 1[AWS REGION] 2[CLIENT INSTANCE ID] 3[SERVER INSTANCE ID] 4[TOOL INSTANCE ID] 5[BASTION INSTANCE ID] 6[SSH KEY]
 # 7[VNI]
 AWS_REGION = sys.argv[1]
 source_instance_id = sys.argv[2]
@@ -91,7 +92,7 @@ def end_bytes_rx(stdout, stderr):
     bytes_tapped = int(stdout) - bytes_tapped
 
 
-def bastion_exec(b_inst, r_inst, key_file, cmd, quiet=False):
+def bastion_exec(b_inst, r_inst, key_file, cmd, quiet=True):
     if "Ubuntu" in r_inst.image.description:
         instance_username = 'ubuntu'
     elif "Amazon" in r_inst.image.description:
@@ -105,7 +106,7 @@ def bastion_exec(b_inst, r_inst, key_file, cmd, quiet=False):
     if isinstance(cmd, list):
         cmd = " ".join(cmd)
 
-    print("\nExecuting:\n\t{}".format(cmd))
+    #print("\nExecuting:\n\t{}".format(cmd))
     stdin, stdout, stderr = subprocess.Popen("{} '{}'".format(ssh_prefix, cmd))
     stdoutS, stderrS = stdout.read(), stderr.read()
     if not quiet:
@@ -127,7 +128,7 @@ for i in public_instances:
     sshsess = paramiko.SSHClient()
     sshsess.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     print("Connecting to instance {} at {}".format(i.id, i.public_ip_address))
-    print("DEBUG: ssh -i {} ec2-user@{}".format(ssh_key_filename, i.public_ip_address))
+ #   print("DEBUG: ssh -i {} ec2-user@{}".format(ssh_key_filename, i.public_ip_address))
     for j in range(5):
         try:
             sshsess.connect(hostname=i.public_ip_address, username='ec2-user',
@@ -153,7 +154,7 @@ for idx, ssh in enumerate(ssess):
     for command in public_setup_commands[idx]:
         # print "Executing {} on instance {}".format(command, instance_names[idx])
         stdin, stdout, stderr = ssh.exec_command(command)
-        print stdout.read()
+     #   print stdout.read()
         err = stderr.read()
         if err:
             print("Errors: {}".format(err))
@@ -180,10 +181,11 @@ for i in instances:
     sshsess = paramiko.SSHClient()
     sshsess.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     print("Connecting to instance {} at {}".format(i.id, i.private_ip_address))
-    print("DEBUG: ssh -i {kf} -o ProxyCommand='ssh -i {kf} ec2-user@{bi} nc {ri} 22' ec2-user@{ri}".format(
-        kf=ssh_key_filename, bi=BASTION_INSTANCE.public_ip_address, ri=i.private_ip_address))
-    proxy = paramiko.ProxyCommand("ssh -i {} ec2-user@{} nc {} {}".format(
-        ssh_key_filename, BASTION_INSTANCE.public_ip_address, i.private_ip_address, 22))
+    pcmd= "ssh -o StrictHostKeyChecking=no -i {kf} ec2-user@{bi} nc {ri} 22".format(
+        kf=ssh_key_filename, bi=BASTION_INSTANCE.public_ip_address, ri=i.private_ip_address)
+ #   print("DEBUG: ssh -i {kf} -o ProxyCommand='{pcmd}' ec2-user@{ri}".format(
+ #       kf=ssh_key_filename, pcmd=pcmd, ri=i.private_ip_address))
+    proxy = paramiko.ProxyCommand(pcmd)
     for j in range(5):
         try:
             sshsess.connect(hostname=i.public_ip_address, username=instance_username,
@@ -193,12 +195,14 @@ for i in instances:
             print("try: %s error connecting: %s" % (j + 1, e))
         else:
             break
+    else:
+        raise Exception("failed to connect to instance {} {}".format(i.id, i.private_ip_address))
     priv_ssess.append(sshsess)
 
 
 instance_names = [
-    "source",
-    "dest",
+    "client",
+    "server",
     "tool",
     "bastion"
 ]
@@ -232,7 +236,7 @@ for idx, instance_i in enumerate(instances):
         print "Executing on instance {}:\n\t'{}'".format(instance_names[idx], command)
         ssh = priv_ssess[idx]
         stdin, stdout, stderr = ssh.exec_command(command)
-        print stdout.read()
+ #       print stdout.read()
         err = stderr.read()
         if err:
             print("Errors: {}".format(err))
@@ -278,7 +282,7 @@ while True:
             # tc['handler'](STDOUT, STDERR)
             iIdx = tc['instance']
             command = tc['command']
-            print "Executing {} on instance {}".format(command, instance_names[iIdx])
+     #       print "Executing {} on instance {}".format(command, instance_names[iIdx])
             ssh = priv_ssess[iIdx]
             stdin, stdout, stderr = ssh.exec_command(command)
             tc['handler'](stdout.read(), stderr.read())
