@@ -20,5 +20,5 @@ curl --output /dev/null https://secure.eicar.org/eicar.com.txt
 sleep 5
 #TLS version of TestmyIDS.com
 curl --output /dev/null https://evebox.org/files/testmyids.com
-
+sleep 5
 done
