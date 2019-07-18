@@ -32,4 +32,7 @@ sleep 5
 git clone https://github.com/nubevalabs/demorepo.git /tmp/demorepo
 sudo rm -r /tmp/demorepo
 sleep 5
+#save this for later
+#http://test.com/items.php?id=2 and 1=1
+#This is a SQL injection attempt. The 1=1 is an indicatior. 
 done
