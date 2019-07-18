@@ -12,7 +12,7 @@ while true; do
 aws iam get-user  --output json
 sleep 5
 #AWS API call on port 443 using TLS to show user info
-aws ec2 describe-vpcs --output json
+aws ec2 describe-vpcs --output json --region us-east-1
 sleep 5
 #Grab EICAR first as binary then as text
 curl --output /dev/null https://secure.eicar.org/eicar.com
