@@ -25,5 +25,11 @@ sleep 5
 #Download Google Homepage via TLS
 curl --output /dev/null https://www.google.com
 sleep 5
+#Download ESPN Homepage via TLS
 curl --output /dev/null https://www.espn.com
+sleep 5
+#Clone Git Repository
+git clone https://github.com/nubevalabs/demorepo.git /tmp/demorepo
+sudo rm -r /tmp/demorepo
+sleep 5
 done
