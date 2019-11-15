@@ -1,0 +1,12 @@
+
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+#Powershell version of TLS generator. 
+#while ($i -lt 99) 
+{
+$1++
+aws iam get-user | Out-Null
+aws s3 ls | Out-Null
+aws ec2 describe-subnets | Out-Null
+aws ec2 describe-key-pairs | Out-Null
+aws s3 ls | Out-Null
+}
