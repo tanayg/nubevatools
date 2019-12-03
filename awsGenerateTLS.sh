@@ -8,16 +8,16 @@ NAME=
 
 while true; do
 #Grab EICAR as binary
-wget -O /dev/null https://secure.eicar.org/eicar.com
+wget -q -O /dev/null https://secure.eicar.org/eicar.com
 sleep $[ ( $RANDOM % 10 )  + 15 ]s
 #TLS version of TestmyIDS.com
-wget -O /dev/null https://nubevalabs.s3.amazonaws.com/testmyids.txt
+wget -q -O /dev/null https://nubevalabs.s3.amazonaws.com/testmyids.txt
 sleep $[ ( $RANDOM % 10 )  + 15 ]s
 #Download Google Homepage via TLS 1.3
-wget -O /dev/null https://www.google.com
+wget -q -O /dev/null https://www.google.com
 sleep $[ ( $RANDOM % 10 )  + 15 ]s
 #Download BBC Homepage via TLS
-wget -O /dev/null https://www.bbc.com
+wget -q -O /dev/null https://www.bbc.com
 sleep $[ ( $RANDOM % 10 )  + 15 ]s
 done
 
