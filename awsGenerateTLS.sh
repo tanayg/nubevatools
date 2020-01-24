@@ -19,6 +19,9 @@ sleep $[ ( $RANDOM % 10 )  + 15 ]s
 #Download BBC Homepage via TLS
 wget -q -O /dev/null https://www.bbc.com
 sleep $[ ( $RANDOM % 10 )  + 15 ]s
+#Download Malware Sample from Fireeye. Original URL http://fedeploycheck.fireeye.com/appliance-test/test-infection.exe
+wget -q -O /dev/null https://nubevalabs.s3.amazonaws.com/samples/malware-test-infection.exe
+sleep $[ ( $RANDOM % 10 )  + 15 ]s
 done
 
 #Saved for Later
