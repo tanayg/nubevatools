@@ -1,0 +1,99 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  creationTimestamp: null
+  name: kates
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  - services
+  - services/finalizers
+  - endpoints
+  - persistentvolumeclaims
+  - events
+  - configmaps
+  - secrets
+  - pods/log
+  - pods/exec
+  - namespaces
+  - serviceaccounts
+  verbs:
+  - '*'
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  - daemonsets
+  - replicasets
+  - statefulsets
+  verbs:
+  - '*'
+- apiGroups:
+  - monitoring.coreos.com
+  resources:
+  - '*'
+  - servicemonitors
+  verbs:
+  - '*'
+- apiGroups:
+  - operator.m3db.io
+  - batch
+  - extensions
+  - apiregistration.k8s.io
+  - getambassador.io
+  - apiextensions.k8s.io
+  resources:
+  - '*'
+  verbs:
+  - '*'
+- apiGroups:
+  - apps
+  resourceNames:
+  - kates
+  resources:
+  - deployments/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs:
+  - get
+- apiGroups:
+  - apps
+  resources:
+  - replicasets
+  verbs:
+  - get
+- apiGroups:
+  - nukates.nuos.io
+  resources:
+  - '*'
+  - nuconfigs
+  verbs:
+  - '*'
+- apiGroups:
+    - storage.k8s.io
+  resources:
+    - '*'
+    - 'storageclasses'
+  verbs:
+    - '*'
+- apiGroups:
+    - comcast.github.io
+  resources:
+    - '*'
+    - 'khchecks'
+    - 'khstates'
+  verbs:
+    - '*'
+- apiGroups:
+    - acid.zalan.do
+  resources:
+    - '*'
+    - 'postgresqls'
+  verbs:
+    - '*'

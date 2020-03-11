@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kates
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: kates
+  template:
+    metadata:
+      labels:
+        name: kates
+    spec:
+      serviceAccountName: kates
+      containers:
+        - name: kates
+          # Replace this with the built image name
+          image: docker.io/nubeva/nukates:9bbbe67a2ed7
+          command:
+          - kates
+          imagePullPolicy: Always
+          env:
+            - name: WATCH_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: OPERATOR_NAME
+              value: "kates"

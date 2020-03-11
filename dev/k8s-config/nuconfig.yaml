@@ -1,0 +1,22 @@
+apiVersion: nukates.nuos.io/v1alpha1
+kind: NuConfig
+metadata:
+  name: nuconfig
+spec:
+  image: docker.io/nubeva/nukatescfg@sha256:413316d63a269aa78298a5a6d804a2570183439a4dc7a4b871368f83f897713b
+  projects:
+  - config:
+      support:
+        automatic: true
+        endpoint: https://i.nuos.io/logs
+        option: upload
+        token: V0Uhdmg1dUBTUnYmQkx3S15YamFIaWV0TzZzVEVTIzRASVk0T0QwajRrbmtqdEJKUGc5U3FxeUJIZUpvd1BHN2ojSmZGMHJrS29Cdzh4RDFKOG5TMmQ1M09wIWI1a1B2XmRXXkdqZ2plNkZQZjVKb2dpWHVkcE1ZcmNrWDZIV0I=
+    connections: []
+    description: Default Project
+    dest_groups: []
+    name: Default Project
+    src_groups: []
+    ssldbauthread: eyJ0eXBlIjoia2RiIiwiZG9tYWluIjoiZG9tIiwicmVnaW9uIjoiay5udW9zLmlvIiwiYWsiOiJ1c2VyIiwic2siOiJhdXRoIn0=
+    ssldbauthwrite: eyJ0eXBlIjoia2RiIiwiZG9tYWluIjoiZG9tIiwicmVnaW9uIjoiay5udW9zLmlvIiwiYWsiOiJ1c2VyIiwic2siOiJhdXRoIn0=
+    uniqueid: 1578954353888641656x2nqze7c8MP
+  sensors_limit: 101

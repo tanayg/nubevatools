@@ -1,0 +1,69 @@
+apiVersion: nukates.nuos.io/v1alpha1
+kind: NuKates
+metadata:
+  name: nukates
+spec:
+  cloud: aws # "aws" or "vmware"
+  registry:
+    image: docker.io/nubeva/nukatesregistry@sha256:27b727111d6ec6cf87b81639f383ca6699e27b096e75d5fc2ed2652c4b9002ea
+  syslog:
+    image: docker.io/nubeva/syslog@sha256:c119a22fc5e3030cae3207f4c8a5bfbb33e4ea50aeb2aa20fdd99f396f6e02f5
+  numq:
+    kafka:
+      pzooInitConfigImage: solsson/kafka-initutils:latest
+      pzooContZookeeperImage: solsson/kafka:2.3.0
+      zooInitConfigImage: solsson/kafka-initutils:latest
+      zooContZookeeperImage: solsson/kafka:2.3.0
+      kbrInitConfigImage: solsson/kafka-initutils:latest
+      brContImage: docker.io/nubeva/numq@sha256:6206710d094a590e9859f3065c8a400bb8031e9768eb44c5c275796b75f6a139
+      topicsContImage: docker.io/nubeva/numq-topics@sha256:8b8f301f1eb5f20fe42a4c73a76726682cba119189108ff5dd6ea44250fdfc4f
+    kafka_controller:
+      image: docker.io/nubeva/numq-controller@sha256:0353180825369bc54bbf9402fa88a06129bf757b1e229062ac19d652e1744754
+    type: kafka
+  apig:
+    image: docker.io/nubeva/nukatesapig@sha256:03262cef2960829fd9c72d4339f00d430583661a13104c1fdbc7beb6be228e80
+    muxerImage: docker.io/nubeva/muxer@sha256:7ad29e4106101518ca1c84a32616d0cfb602f8677e3a5637c2a84d8283b67082
+    resetService: true
+  putlogapig:
+    image: docker.io/nubeva/putlogapig@sha256:e5a2322462dc2d28d1958404d481189a8c452b25311b021b18a31c0e0159e6fe
+  db:
+    m3:
+      m3Image: quay.io/m3db/m3db-operator:v0.2.0
+      m3NodeImage: quay.io/m3db/m3dbnode:v0.14.2
+      etcdImage: quay.io/coreos/etcd:v3.3.3
+  monitoring:
+    promLabelVersion: v0.33.0
+    prometheusImage: quay.io/prometheus/prometheus:v2.11.0
+    alertManagerImage: quay.io/prometheus/alertmanager:v0.20.0
+    configReloaderImage: quay.io/coreos/configmap-reload:v0.0.1
+    prometheusConfigReloaderImage: quay.io/coreos/prometheus-config-reloader:v0.33.0
+    postgresAcidImage: registry.opensource.zalan.do/acid/spilo-11:1.6-p1
+    promImage: quay.io/coreos/prometheus-operator:v0.33.0
+    grafImage: nubeva/nuana@sha256:59ec12937c08e2eb2dfba46455eb6da087f984de3c2654620419ce27d522239d
+    grafPartner: Nubeva
+    grafPartnerFavicon: public/img/nubeva/favicon.png
+    grafDbOperatorImage: docker.io/nubeva/postgres-operator@sha256:d993f32512ad2c7689aa0dc1644fa9dac824564624a5b82ae87e767d5ddea5e2
+    ksmMainImage: quay.io/coreos/kube-rbac-proxy:v0.4.1
+    ksmSelfImage: quay.io/coreos/kube-rbac-proxy:v0.4.1
+    ksmImage: quay.io/coreos/kube-state-metrics:v1.7.2
+    neImage: quay.io/prometheus/node-exporter:v0.18.1
+    neKubeRbacImage: quay.io/coreos/kube-rbac-proxy:v0.4.1
+    promAdaptImage: quay.io/coreos/k8s-prometheus-adapter-amd64:v0.4.1
+    kuberhealthyImage: quay.io/comcast/kuberhealthy:2.0.0
+    kuberhealthyCheckDeploymentImage: quay.io/comcast/deployment-check:1.0.3
+    kuberhealthyCheckHTTPImage: quay.io/comcast/http-check:1.0.0
+    kuberhealthyCheckInternalDNSImage: quay.io/comcast/dns-status-check:1.0.0
+    kuberhealthyCheckPodRestartsImage: quay.io/comcast/pod-restarts-check:2.0.0
+    kuberhealthyCheckPodStatusImage: quay.io/comcast/pod-status-check:1.1.0
+  proxy:
+    image: quay.io/datawire/ambassador:0.85.0
+  binrepo:
+    image: docker.io/nubeva/bin-repo@sha256:989c1c5a2e076663214752f226ebe9a38b15919116a7e033689be8f54771d212
+  mongodb:
+    image: mongo
+    mongoSidecarImage: cvallance/mongo-k8s-sidecar
+    mongoExporterImage: ssheehy/mongodb-exporter
+  fluentd:
+    image: fluent/fluentd-kubernetes-daemonset:v1-debian-syslog
+  cfmetrics:
+    image: docker.io/nubeva/nukatescfg-metrics@sha256:b285f579c4842514c83cb45b51b81318f29ba33b94ca17c6511ee0522bf41557
