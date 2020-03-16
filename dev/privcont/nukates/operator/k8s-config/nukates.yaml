@@ -5,9 +5,9 @@ metadata:
 spec:
   cloud: aws # "aws" or "vmware"
   registry:
-    image: docker.io/nubeva/nukatesregistry@sha256:27b727111d6ec6cf87b81639f383ca6699e27b096e75d5fc2ed2652c4b9002ea
+    image: docker.io/nubeva/nukatesregistry@sha256:7b8791c82690a6b9f936e313d02a9c65451bb38448a611081a138613065632d3
   syslog:
-    image: docker.io/nubeva/syslog@sha256:c119a22fc5e3030cae3207f4c8a5bfbb33e4ea50aeb2aa20fdd99f396f6e02f5
+    image: docker.io/nubeva/syslog@sha256:dba73f07bd44b7aad9397d57b56beaeaab15fd1f1fb5be988cae39932fc4645d
   numq:
     kafka:
       pzooInitConfigImage: solsson/kafka-initutils:latest
@@ -15,17 +15,17 @@ spec:
       zooInitConfigImage: solsson/kafka-initutils:latest
       zooContZookeeperImage: solsson/kafka:2.3.0
       kbrInitConfigImage: solsson/kafka-initutils:latest
-      brContImage: docker.io/nubeva/numq@sha256:6206710d094a590e9859f3065c8a400bb8031e9768eb44c5c275796b75f6a139
-      topicsContImage: docker.io/nubeva/numq-topics@sha256:8b8f301f1eb5f20fe42a4c73a76726682cba119189108ff5dd6ea44250fdfc4f
+      brContImage: docker.io/nubeva/numq@sha256:aee88e439f05f0468eab6026cf00179c0126bc65021f31744661260994084bc8
+      topicsContImage: docker.io/nubeva/numq-topics@sha256:e854d7c90f3a40a3c173c37b8a949f38cbd5b990ee07949afba5b530e837c14f
     kafka_controller:
-      image: docker.io/nubeva/numq-controller@sha256:0353180825369bc54bbf9402fa88a06129bf757b1e229062ac19d652e1744754
+      image: docker.io/nubeva/numq-controller@sha256:3164d5128dbaf674d6644586ad460551b55211be6b05e4e851f4c5b933c48616
     type: kafka
   apig:
-    image: docker.io/nubeva/nukatesapig@sha256:03262cef2960829fd9c72d4339f00d430583661a13104c1fdbc7beb6be228e80
-    muxerImage: docker.io/nubeva/muxer@sha256:7ad29e4106101518ca1c84a32616d0cfb602f8677e3a5637c2a84d8283b67082
+    image: docker.io/nubeva/nukatesapig@sha256:241c8e4a1d8b21157de66f0f25d995f35e959a54c7efc4aca9f794b69996d9b0
+    muxerImage: docker.io/nubeva/muxer@sha256:79d1be0c66295ef0fc1d435f895adb6f77fe61ebc1ea862037fc7f12b105b2fb
     resetService: true
   putlogapig:
-    image: docker.io/nubeva/putlogapig@sha256:e5a2322462dc2d28d1958404d481189a8c452b25311b021b18a31c0e0159e6fe
+    image: docker.io/nubeva/putlogapig@sha256:f56fffcfe0a25a12f74305fde04fe63566b59e8f2c1ce1e145be169f1201dcf3
   db:
     m3:
       m3Image: quay.io/m3db/m3db-operator:v0.2.0
@@ -39,10 +39,10 @@ spec:
     prometheusConfigReloaderImage: quay.io/coreos/prometheus-config-reloader:v0.33.0
     postgresAcidImage: registry.opensource.zalan.do/acid/spilo-11:1.6-p1
     promImage: quay.io/coreos/prometheus-operator:v0.33.0
-    grafImage: nubeva/nuana@sha256:59ec12937c08e2eb2dfba46455eb6da087f984de3c2654620419ce27d522239d
+    grafImage: nubeva/nuana@sha256:ee047e8297f96d15965295bd9af780c127846eff081af8bb4bee13809b5cc7ab
     grafPartner: Nubeva
     grafPartnerFavicon: public/img/nubeva/favicon.png
-    grafDbOperatorImage: docker.io/nubeva/postgres-operator@sha256:d993f32512ad2c7689aa0dc1644fa9dac824564624a5b82ae87e767d5ddea5e2
+    grafDbOperatorImage: docker.io/nubeva/postgres-operator@sha256:84e68f39444ea779974dbccb09e7a71b419fcc17c5e6da3f8ea75b08c44f4687
     ksmMainImage: quay.io/coreos/kube-rbac-proxy:v0.4.1
     ksmSelfImage: quay.io/coreos/kube-rbac-proxy:v0.4.1
     ksmImage: quay.io/coreos/kube-state-metrics:v1.7.2
@@ -56,9 +56,10 @@ spec:
     kuberhealthyCheckPodRestartsImage: quay.io/comcast/pod-restarts-check:2.0.0
     kuberhealthyCheckPodStatusImage: quay.io/comcast/pod-status-check:1.1.0
   proxy:
-    image: quay.io/datawire/ambassador:0.85.0
+    image: quay.io/datawire/ambassador:1.2.2
+    hostNetwork: false
   binrepo:
-    image: docker.io/nubeva/bin-repo@sha256:989c1c5a2e076663214752f226ebe9a38b15919116a7e033689be8f54771d212
+    image: docker.io/nubeva/bin-repo@sha256:5200b05e54cc99ca6c2ee806921cf086261284fed28668ae11851ca44473eb2e
   mongodb:
     image: mongo
     mongoSidecarImage: cvallance/mongo-k8s-sidecar
@@ -66,4 +67,4 @@ spec:
   fluentd:
     image: fluent/fluentd-kubernetes-daemonset:v1-debian-syslog
   cfmetrics:
-    image: docker.io/nubeva/nukatescfg-metrics@sha256:b285f579c4842514c83cb45b51b81318f29ba33b94ca17c6511ee0522bf41557
+    image: docker.io/nubeva/nukatescfg-metrics@sha256:427a4a5816b526f586c19baa3f1d33e59371dee440b940c6b90565ec6ff40035

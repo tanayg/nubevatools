@@ -3,14 +3,14 @@ kind: NuConfig
 metadata:
   name: nuconfig
 spec:
-  image: docker.io/nubeva/nukatescfg@sha256:413316d63a269aa78298a5a6d804a2570183439a4dc7a4b871368f83f897713b
+  image: docker.io/nubeva/nukatescfg@sha256:62eebfdcb38d36865a14532f6461bdf57606e44262502c4caca73d41c25635a7
   projects:
   - config:
       support:
         automatic: true
         endpoint: https://i.nuos.io/logs
         option: upload
-        token: V0Uhdmg1dUBTUnYmQkx3S15YamFIaWV0TzZzVEVTIzRASVk0T0QwajRrbmtqdEJKUGc5U3FxeUJIZUpvd1BHN2ojSmZGMHJrS29Cdzh4RDFKOG5TMmQ1M09wIWI1a1B2XmRXXkdqZ2plNkZQZjVKb2dpWHVkcE1ZcmNrWDZIV0I=
+        token: I2dHIUZnU29ZJnNSalhsZXN2ZzBObnZSOFdCclghRkJwd2piciVZQWZRdGZLWTlsenBEOSFxVDghVFRZRnQ3VFRJYTVtemVaZ3JTbkQmNlFJYnhXNXg1eTZrNjVVVXgycm43Nks0SUZPMHZoc2hXdiNEIXoxMiZ2RDdTYkFCT3I=
     connections: []
     description: Default Project
     dest_groups: []

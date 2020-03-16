@@ -16,7 +16,7 @@ spec:
       containers:
         - name: kates
           # Replace this with the built image name
-          image: docker.io/nubeva/nukates:9bbbe67a2ed7
+          image: docker.io/nubeva/nukates:64463ddd9ebe
           command:
           - kates
           imagePullPolicy: Always
