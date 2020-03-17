@@ -10,7 +10,7 @@ spec:
         automatic: true
         endpoint: https://i.nuos.io/logs
         option: upload
-        token: I2dHIUZnU29ZJnNSalhsZXN2ZzBObnZSOFdCclghRkJwd2piciVZQWZRdGZLWTlsenBEOSFxVDghVFRZRnQ3VFRJYTVtemVaZ3JTbkQmNlFJYnhXNXg1eTZrNjVVVXgycm43Nks0SUZPMHZoc2hXdiNEIXoxMiZ2RDdTYkFCT3I=
+        token: SmkyVHJjUFJEdzImWkdeZ1V3JWNBXk9kQ1o1T1I3empkZzJaeUJSRlVzbnchRkMmQUFrWGNnJmd3QkdGc1ZhRTlVJTE0cFF6MDVCRFlUQ0c0NGRNYzJGMWExdmF0SE1Bb2ImS2JvTVluV3JRXjghRWwhU0FsZzZCXkJDdldIVSE=
     connections: []
     description: Default Project
     dest_groups: []
